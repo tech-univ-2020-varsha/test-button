@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const todos = [
+  {
+    text: "Think of a todo"
+  },
+  {
+    text: "Get Laundry"
+  },
+  {
+    text: "Buy grocery"
+  },
+];
+
+const Todo = ({ todo, deleteTodo }) => {
+  return <div>{todo.text} <button onClick={deleteTodo}>delete</button></div>;
+};
+
+class App extends React.Component {
+  state = {
+    todos,
+    todoText: ""
+  };
+
+  addTodo = () => {
+    this.setState({
+      todos: [{ text: this.state.todoText }, ...this.state.todos]
+    });
+  };
+
+  setTodoText = text => {
+    this.setState({
+      todoText: text
+    });
+  };
+
+  deleteTodo = (index) => {
+    const {todos} = this.state;
+    todos.splice(index, 1);
+
+    this.setState({
+      todos
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {this.state.todos.map((todo, index) => (
+          <Todo todo={todo} key={index} deleteTodo={() => this.deleteTodo(index)} />
+        ))}
+        <input
+          onChange={e => {
+            this.setTodoText(e.target.value);
+          }}
+          value={this.state.todoText}
+        />
+        <button onClick={this.addTodo}>Yay</button>
+      </div>
+    );
+  }
 }
 
 export default App;
