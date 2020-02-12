@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`the button component should render a circle shaped button when type is passed as round 1`] = `
+<DocumentFragment>
+  <button
+    data-testid="test-btn"
+  >
+    Test text
+  </button>
+</DocumentFragment>
+`;
+
+exports[`the button component should render a rectangle shaped button when type is passed as rect 1`] = `
+<DocumentFragment>
+  <button
+    data-testid="test-btn"
+  >
+    Test text
+  </button>
+</DocumentFragment>
+`;
+
 exports[`the button component should render correctly 1`] = `
 <DocumentFragment>
   <button
