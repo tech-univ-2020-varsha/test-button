@@ -1,32 +1,44 @@
 import React from 'react';
-import {Button} from './index';
 import { render, fireEvent } from '@testing-library/react';
+import  Button  from './index';
+import '../index.css';
+
 
 describe('the button component', () => {
-    it('should render correctly', () => {
-        const { asFragment } = render(<Button testID="test-btn" type="rect">Test text</Button>);
 
-        expect(asFragment()).toMatchSnapshot();
-    });
+  it('should render correctly', () => {
+    const { asFragment } = render(<Button testID="test-btn">Test text</Button>);
 
-    it('should call the onClick prop when the button is clicked', () => {
-        const onClickMock = jest.fn();
-        const { getByTestId } = render(<Button testID="test-btn" type="rect" onClick={onClickMock}>Test text</Button>);
+    expect(asFragment()).toMatchSnapshot();
+  });
 
-        fireEvent.click(getByTestId("test-btn"));
-        expect(onClickMock).toHaveBeenCalledWith();
-    });
+  it('should call the onClick prop when the button is clicked', () => {
+    const onClickMock = jest.fn();
+    const { getByTestId } = render(<Button testId="test-btn" click={onClickMock}></Button>);
 
-    it('should render a rectangle shaped button when type is passed as rect', () => {
-        const { asFragment} = render(<Button testID="test-btn" type="rect">Test text</Button>);
-        expect(asFragment()).toMatchSnapshot();
+    fireEvent.click(getByTestId('test-btn'));
+    expect(onClickMock).toHaveBeenCalled();
+  });
 
-    });
+  it('should verify the type of button passed (rect) to the component', () => {
+    
+    const { buttonType } = render(<Button testID="test-btn" buttonType="rect" />);
 
-    it('should render a circle shaped button when type is passed as round', () => {
-        const { asFragment} = render(<Button testID="test-btn" type="round">Test text</Button>);
-        expect(asFragment()).toMatchSnapshot();
+    expect(buttonType).toMatchSnapshot();
+  });
 
-    });
+  it('should verify the type of button passed (round) to the component', () => {
+    const onClickMock = jest.fn();
+    const { buttonType } = render(<Button testID="test-btn" buttonType="round" onClick={onClickMock} />);
 
-})
+    expect(buttonType).toMatchSnapshot();
+
+  });
+
+  it('should verify if the count value is right or not',()=>{
+    const onClickMock=jest.fn();
+    const {getByTestId}=render(<Button testId="test-btn" buttonType="rect" click={onClickMock} text="Bhumika"/>);
+    fireEvent.click(getByTestId("test-btn"));
+    expect(getByTestId('test-btn')).toHaveTextContent("Bhumika clicked 1 times.");
+  })
+});

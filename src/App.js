@@ -1,3 +1,12 @@
-const App = () => null;
+import React from 'react'
+import Container from './components/Container'
 
-export default App;
+function App() {
+    return (
+        <div>
+            <Container/>
+        </div>
+    )
+}
+
+export default App

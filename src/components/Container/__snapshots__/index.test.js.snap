@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The container component should check if the button component works 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="test-cntner"
+  >
+    <div>
+      <input
+        type="text"
+      />
+    </div>
+    <button>
+       clicked 0 times.
+    </button>
+  </div>
+</DocumentFragment>
+`;
