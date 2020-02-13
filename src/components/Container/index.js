@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from '../Button';
 import TextBox from '../TextBox';
 import axios from 'axios';
+import {responseUrl} from '../../constants'
 class Container extends Component {
     state={
         text:''
@@ -9,7 +10,7 @@ class Container extends Component {
     
       
       componentDidMount=async () => {
-        const data=(await axios.get('https://api.myjson.com/bins/1grobk'));
+        const data=(await axios.get(responseUrl));
         this.setState({
           text:data.data.initialText
       })
