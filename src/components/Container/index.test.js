@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, wait } from '@testing-library/react';
 import Container from '../Container';
 import axios from 'axios';
 
@@ -19,13 +19,15 @@ describe('The container component',()=>{
     });
 
   
-    it('should called axios get method to get value for input box',()=>{
+    it('should called axios get method to get value for input box',async()=>{
         const mockAxiosResponse={data:{initialText:"unicorn"}}
         const mockAxios=jest.spyOn(axios,'get');
         mockAxios.mockResolvedValue(mockAxiosResponse);
         const {getByTestId}=render(<Container testId='test-cntner' testIdButton='test-btn' testIdTextBox='123'/>)
+       await wait(()=>{
         expect(mockAxios).toHaveBeenCalled();
-        fireEvent.change(getByTestId('123'),{target:{value:mockAxiosResponse.data.initialText}});
+        expect(getByTestId('123').value).toBe(mockAxiosResponse.data.initialText)
         expect(getByTestId('test-btn')).toHaveTextContent(`${mockAxiosResponse.data.initialText} clicked 0 times.`);
+       })
     })
 })
