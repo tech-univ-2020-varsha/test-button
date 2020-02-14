@@ -1,27 +1,20 @@
 import React, { Component,useState,useEffect } from 'react';
 import Button from '../Button';
 import TextBox from '../TextBox';
-import axios from 'axios';
-import {EXTERNAL_API} from '../../constants'
-
+import {useInput} from '../../hooks/useInput'
+import {EXTERNAL_API} from '../../constants/index'
 const Container=({testId,testIdButton,testIdTextBox})=>{
    
-const [text,setText]=useState("");
+const [text,setText]=useInput(EXTERNAL_API,"");
 const onChange=(inputTextValue)=>{
    setText(inputTextValue);
+   
 }
-    useEffect(()=>{
-        const asyncFunc=async()=>{
-            const data= await axios.get(EXTERNAL_API)
-            setText(data.data.initialText);
-        }
-        asyncFunc();
-       
-    },[])
-return  <div data-testid={testId}>
-<TextBox onChange={onChange} testId={testIdTextBox} value={text}/>
-<Button text={text} buttonType="round" testId={testIdButton}/>
-</div>
+   
+    return  <div data-testid={testId}>
+    <TextBox onChange={onChange} testId={testIdTextBox} value={text}/>
+    <Button text={text} buttonType="round" testId={testIdButton}/>
+    </div>
 }
 
 export default Container
