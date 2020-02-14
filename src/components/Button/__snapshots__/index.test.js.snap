@@ -2,12 +2,30 @@
 
 exports[`the button component should render correctly 1`] = `
 <DocumentFragment>
-  <button>
-     clicked 0 times.
+  <button
+    data-testid="test-btn"
+  >
+     has been called 0 times
   </button>
 </DocumentFragment>
 `;
 
-exports[`the button component should verify the type of button passed (rect) to the component 1`] = `undefined`;
+exports[`the button component should render a rectangle shaped button when type is passed as rect 1`] = `
+<DocumentFragment>
+  <button
+    data-testid="test-btn"
+  >
+     has been called 0 times
+  </button>
+</DocumentFragment>
+`;
 
-exports[`the button component should verify the type of button passed (round) to the component 1`] = `undefined`;
+exports[`the button component should render correctly 1`] = `
+<DocumentFragment>
+  <button
+    data-testid="test-btn"
+  >
+     has been called 0 times
+  </button>
+</DocumentFragment>
+`;
