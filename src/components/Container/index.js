@@ -6,13 +6,10 @@ import {EXTERNAL_API} from '../../constants/index'
 const Container=({testId,testIdButton,testIdTextBox})=>{
    
 const [text,setText]=useInput(EXTERNAL_API,"");
-const onChange=(inputTextValue)=>{
-   setText(inputTextValue);
-   
-}
+
    
     return  <div data-testid={testId}>
-    <TextBox onChange={onChange} testId={testIdTextBox} value={text}/>
+    <TextBox onChange={setText} testId={testIdTextBox} value={text}/>
     <Button text={text} buttonType="round" testId={testIdButton}/>
     </div>
 }

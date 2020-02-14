@@ -33,6 +33,7 @@ describe('The container component',()=>{
         mockAxios.mockResolvedValue(mockAxiosResponse);
         
         const {getByTestId}=render(<Container testId='test-cntner' testIdButton='test-btn' testIdTextBox='123'/>)
+        
        await wait(()=>{
         expect(mockAxios).toHaveBeenCalled();
         expect(getByTestId('123').value).toBe(mockAxiosResponse.data.initialText)
