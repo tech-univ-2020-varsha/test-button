@@ -1,27 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Button from '../Button';
-import TextBox from '../../TextBox';
+import TextBox from '../TextBox';
+import useInput from '../../hooks/useInput'
 
-class Container extends Component {
-    state={
-        text:''
-    }
+const Container = (props) => {
+    const [text, setText] = useInput('');
 
-    onChange=(inputTextValue)=>{
-        this.setState({
-            text:inputTextValue
-        })
+    const onChange=(inputTextValue)=>{
+        setText(inputTextValue)
     }
-
-    render() {
-        const {testId,testIdButton,testIdTextBox}=this.props;
-        return (
-            <div data-testid={testId}>
-                <TextBox onChange={(this.onChange)} testId={testIdTextBox} />
-                <Button text={this.state.text} buttonType="round" testId={testIdButton}/>
-            </div>
-        )
-    }
+    const {testId,testIdButton,testIdTextBox}=props;
+    return (
+        <div data-testid={testId}>
+            <TextBox onChange={(onChange)} testId={testIdTextBox} value = {text}/>
+            <Button text={text} buttonType="round" testId={testIdButton} click = {() => {}}/>
+        </div>
+    );
 }
 
 export default Container
