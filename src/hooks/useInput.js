@@ -1,17 +1,17 @@
-import React, { Component,useState,useEffect } from 'react';
-import axios from 'axios'
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+import url from '../constants';
 
-export const useInput=(url,defaultValue)=>{
-    const [text,setText]=useState(defaultValue);
-    useEffect(()=>{
-       
-         axios.get(url).then(({data})=>{
-                setText(data.initialText);
-            })
-           
-       
-    },[url])
+const useInput = (defaultValue) => {
+    const [text, setText] = useState(defaultValue);
+    useEffect(() => {
+        const someFunc = async() => {
+            const response = await axios.get(url);
+        setText(response.data.initialText)
+        }
+        someFunc();
+        
+    },[]);
     return [text,setText];
 }
-
-// export {useInput}
+export default useInput;

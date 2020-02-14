@@ -1,35 +1,31 @@
-import React ,{Component}from 'react'
-import {renderHook,act} from '@testing-library/react-hooks';
-import axios from 'axios'
-import {useInput} from './useInput'
-import {EXTERNAL_API} from '../constants'
+import axios from 'axios';
+import React from 'react';
+import useInput from './useInput';
+import {renderHook, act } from '@testing-library/react-hooks';
+import url from '../constants'
 
-describe('the useInput hook',()=>{
-    let mockAxios="";
-  beforeAll(()=>{
-
-  mockAxios =jest.spyOn(axios,'get');
-    mockAxios.mockResolvedValue({data:{
-        initialText:"varsha"
-    }})
-  }) 
-
-it('should make an api call to fetch data',async()=>{
+describe('the useInput hook', () => {
     
-const {result, waitForNextUpdate} = renderHook(() => useInput(EXTERNAL_API,""));
-await waitForNextUpdate();
-expect(mockAxios).toHaveBeenCalledWith(EXTERNAL_API);
-expect(result.current[0]).toBe('varsha')
-});
-
-it('should update the text when setText is been called',async()=>{
-    const {result, waitForNextUpdate} = renderHook(() => useInput(EXTERNAL_API,""));
-await waitForNextUpdate();
-expect(mockAxios).toHaveBeenCalledWith(EXTERNAL_API);
-expect(result.current[0]).toBe('varsha');
-act(() => {
-    result.current[1]('test-value-2');
-});
-expect(result.current[0]).toBe('test-value-2');
-})
+    it ('should make an api call to fetch defaut text and set it in state', async() => {
+        const mockAxios = jest.spyOn(axios,'get');
+        mockAxios.mockResolvedValue({data:{initialText:'123'}})
+        const {result, waitForNextUpdate} = renderHook(() => useInput('defaultValue'))
+        await waitForNextUpdate();
+        expect(mockAxios).toHaveBeenCalledWith(url);
+        expect(result.current[0]).toEqual('123');
+    });
+    it('should update the text when the setText function is called', async() => {
+        const mockAxios = jest.spyOn(axios,'get');
+        mockAxios.mockResolvedValue({data:{initialText:'123'}})
+        const {
+            result,
+            waitForNextUpdate
+        } = renderHook(() => useInput());
+        await waitForNextUpdate();
+        expect(result.current[0]).toEqual('123');
+        act(() => {
+            result.current[1]('newValue');
+        });
+        expect(result.current[0]).toEqual('newValue');
+    });
 })
