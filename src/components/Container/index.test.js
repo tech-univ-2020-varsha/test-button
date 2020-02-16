@@ -50,4 +50,10 @@ describe('The container component',()=>{
         await wait(() => expect(getByTestId('123').value).toBe('unicorn'));
         await wait(() => expect(getByTestId('test-btn')).toHaveTextContent('unicorn'));
     })
+    it('should make the textbox disabled when the disabled prop is true',()=>{
+        const changeHandler=jest.fn();
+        const { getByTestId } = render(<Container testId='test-cntner' testIdButton='test-btn' testIdTextBox='123'/>);
+        fireEvent.change(getByTestId("123"),{target:{value:"Bhumika"}});
+        expect(changeHandler).not.toHaveBeenCalled();
+    });
 })

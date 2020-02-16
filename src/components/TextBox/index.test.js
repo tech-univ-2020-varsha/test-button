@@ -19,5 +19,11 @@ describe('The TextBox component',()=>{
         expect(changeHandler).toHaveBeenCalled();
     });
 
+    it('should make the textbox disabled when the disabled prop is true',()=>{
+        const changeHandler=jest.fn();
+        const { getByTestId } = render(<TextBox testId="123" disabled={true} onChange={changeHandler}/>);
+        fireEvent.change(getByTestId("123"),{target:{value:"Bhumika"}});
+        expect(changeHandler).not.toHaveBeenCalled();
+    });
     
 })
